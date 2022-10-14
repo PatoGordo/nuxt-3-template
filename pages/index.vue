@@ -9,7 +9,7 @@ definePageMeta({
 
 <template>
   <section class="grid sm:grid-cols-2 gap-4">
-    <div class="w-full flex flex-col items-start justify-start gap-4">
+    <div class="w-full flex flex-col items-start justify-start gap-4 sm:p-4">
       <h2 class="page-title mb-4">Home page</h2>
 
       <p>

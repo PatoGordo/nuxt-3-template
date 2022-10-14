@@ -16,5 +16,7 @@ module.exports = {
     "plugin:prettier/recommended",
   ],
   plugins: ["@typescript-eslint"],
-  rules: {},
+  rules: {
+    "vue/multi-word-component-names": "off",
+  },
 };
