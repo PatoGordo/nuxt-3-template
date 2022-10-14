@@ -13,6 +13,7 @@ useHead({
   <nuxt-layout>
     <router-view />
   </nuxt-layout>
+  <loading />
 </template>
 
 <style lang="scss">
