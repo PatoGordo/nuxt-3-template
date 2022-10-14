@@ -66,7 +66,7 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const updatedUser = await prismaClient.user.update({
+  await prismaClient.user.update({
     where: {
       id: user.id,
     },
