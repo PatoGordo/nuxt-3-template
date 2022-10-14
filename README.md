@@ -1,6 +1,20 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Template
 
-Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+## Features
+
+- Vue 3
+- Nuxt 3
+- Prisma
+- Tailwindcss
+- DaisyUI
+- Pinia
+- Axios api
+- Sweet Alert 2
+- Eslint and Prettier
+- Husky
+- Authentication ready to use
+- Mail service ready to use
+- Laravel form validation
 
 ## Setup
 
@@ -39,4 +53,22 @@ Locally preview production build:
 npm run preview
 ```
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+## Prisma commands
+
+Transform your models into code
+
+```bash
+yarn prisma:generate
+```
+
+Push your models into tables in your DB
+
+```bash
+yarn prisma db push
+```
+
+Pull your DB into models
+
+```bash
+yarn prisma db pull
+```
