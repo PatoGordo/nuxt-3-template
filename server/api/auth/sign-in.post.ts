@@ -59,7 +59,7 @@ export default defineEventHandler(async (event) => {
       user,
       message: "You has been logged-in with success!",
       token,
-      expires_at: moment().add(24, "hours"),
+      expires_at: moment().add(24, "h"),
     };
   } else {
     event.res.statusCode = 403;

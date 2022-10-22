@@ -10,16 +10,18 @@ definePageMeta({
 </script>
 
 <template>
-  <section
-    class="bg-base-200 w-full h-full gap-4 p-8 rounded-md flex flex-col items-center justify-center"
-  >
-    <h2 class="page-title pb-0">Access your email to see the reset link</h2>
-    <iconify-icon
-      icon="emojione:white-heavy-check-mark"
-      width="220"
-    ></iconify-icon>
-    <router-link to="/auth/sign-in" class="btn btn-primary"
-      >Go to login page</router-link
+  <div class="page-content">
+    <section
+      class="bg-base-200 w-full h-full gap-4 p-8 rounded-md flex flex-col items-center justify-center"
     >
-  </section>
+      <h2 class="page-title pb-0">Access your email to see the reset link</h2>
+      <iconify-icon
+        icon="emojione:white-heavy-check-mark"
+        width="220"
+      ></iconify-icon>
+      <nuxt-link to="/auth/sign-in" class="btn btn-primary"
+        >Go to login page</nuxt-link
+      >
+    </section>
+  </div>
 </template>

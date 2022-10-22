@@ -22,30 +22,32 @@ definePageMeta({
 </script>
 
 <template>
-  <section
-    class="bg-base-200 w-full h-full gap-4 p-8 rounded-md flex flex-col items-start justify-center"
-  >
-    <h2 class="page-title pb-0">Forgot password</h2>
-
-    <form
-      @submit.prevent="handleSubmit"
-      class="mt-2 w-full flex flex-col items-start justify-start gap-4"
+  <div class="page-content">
+    <section
+      class="bg-base-200 w-full h-full gap-4 p-8 rounded-md flex flex-col items-start justify-center"
     >
-      <div class="form-control w-full">
-        <label class="label">
-          <span class="label-text">What is your email?</span>
-        </label>
-        <input
-          type="email"
-          placeholder="Your email..."
-          class="input input-bordered w-full"
-          v-model="email"
-        />
-      </div>
+      <h2 class="page-title pb-0">Forgot password</h2>
 
-      <button class="btn btn-primary self-end w-1/3" type="submit">
-        Recover password
-      </button>
-    </form>
-  </section>
+      <form
+        class="mt-2 w-full flex flex-col items-start justify-start gap-4"
+        @submit.prevent="handleSubmit"
+      >
+        <div class="form-control w-full">
+          <label class="label">
+            <span class="label-text">What is your email?</span>
+          </label>
+          <input
+            v-model="email"
+            type="email"
+            placeholder="Your email..."
+            class="input input-bordered w-full"
+          />
+        </div>
+
+        <button class="btn btn-primary self-end w-1/3" type="submit">
+          Recover password
+        </button>
+      </form>
+    </section>
+  </div>
 </template>

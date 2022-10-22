@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+import moment from "moment";
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import { useAxiosError } from "~~/composables/useAxiosError";
@@ -7,7 +9,7 @@ import { useLoading } from "./loading";
 type AuthStoreProps = {
   token?: string;
   expires_at?: null | Date;
-  user?: null;
+  user?: null | User;
 };
 
 export const useAuthStore = defineStore("auth", {
@@ -21,6 +23,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async signIn({ email, password }: { email: string; password: string }) {
       const loading = useLoading();
+      const router = useRouter();
 
       loading.hint = "Signing...";
       loading.open();
@@ -33,10 +36,10 @@ export const useAuthStore = defineStore("auth", {
 
         this.token = result.data.token;
         this.user = result.data.user;
-        this.expires_at = result.data.expires_at;
+        this.expires_at = moment().add(24, "h");
 
+        router.push("/dashboard");
         loading.close();
-        window.location.href = "/dashboard";
       } catch (error) {
         useAxiosError(error, () => {
           loading.close();
@@ -54,6 +57,7 @@ export const useAuthStore = defineStore("auth", {
       password: string;
     }) {
       const loading = useLoading();
+      const router = useRouter();
 
       loading.hint = "Creating account...";
       loading.open();
@@ -69,8 +73,8 @@ export const useAuthStore = defineStore("auth", {
         this.user = result.data.user;
         this.expires_at = result.data.expires_at;
 
+        router.push("/dashboard");
         loading.close();
-        window.location.href = "/dashboard";
       } catch (error) {
         useAxiosError(error, () => {
           loading.close();
@@ -79,13 +83,17 @@ export const useAuthStore = defineStore("auth", {
       }
     },
     async signOut() {
-      this.token = null;
-      this.username = null;
+      const router = useRouter();
 
-      window.location.href = "/auth/sign-in";
+      this.token = null;
+      this.user = null;
+      this.expires_at = null;
+
+      router.push("/auth/sign-in");
     },
     async forgotPassword({ email }: { email: string }) {
       const loading = useLoading();
+      const router = useRouter();
 
       loading.hint = "Sending a reset email...";
       loading.open();
@@ -101,9 +109,8 @@ export const useAuthStore = defineStore("auth", {
           showCancelButton: true,
           cancelButtonText: "OK",
         });
-
+        router.push("/auth/next-step-forgot-password");
         loading.close();
-        window.location.href = "/auth/next-step-forgot-password";
       } catch (error) {
         useAxiosError(error, () => {
           loading.close();
@@ -119,6 +126,7 @@ export const useAuthStore = defineStore("auth", {
       password: string;
     }) {
       const loading = useLoading();
+      const router = useRouter();
 
       loading.hint = "Reseting password...";
       loading.open();
@@ -137,7 +145,7 @@ export const useAuthStore = defineStore("auth", {
         });
 
         loading.close();
-        window.location.href = "/auth/sign-in";
+        router.push("/auth/sign-in");
       } catch (error) {
         useAxiosError(error, () => {
           loading.close();

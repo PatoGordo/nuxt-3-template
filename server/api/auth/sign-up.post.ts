@@ -81,7 +81,7 @@ export default defineEventHandler(async (event) => {
       user,
       message: "A new user has been successfully created!",
       token,
-      expires_at: moment().add(24, "hours"),
+      expires_at: moment().add(24, "h"),
     };
   } catch (error) {
     event.res.statusCode = 403;

@@ -12,3 +12,7 @@ html {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.remove-user-interaction {
+  pointer-events: none;
+}
