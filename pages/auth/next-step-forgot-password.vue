@@ -10,7 +10,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="page-content">
+  <div class="page-content-auth">
     <section
       class="bg-base-200 w-full h-full gap-4 p-8 rounded-md flex flex-col items-center justify-center"
     >

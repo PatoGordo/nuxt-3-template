@@ -107,9 +107,7 @@ const isDrawerOpened = ref(false);
       </div>
     </div>
 
-    <div class="page-content">
-      <slot />
-    </div>
+    <slot />
     <loading />
   </div>
 </template>

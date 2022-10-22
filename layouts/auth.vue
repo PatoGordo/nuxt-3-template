@@ -162,9 +162,7 @@
           />
         </svg>
       </div>
-      <div class="page-content-auth">
-        <slot />
-      </div>
+      <slot />
     </section>
     <loading />
   </div>
