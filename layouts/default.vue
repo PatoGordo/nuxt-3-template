@@ -2,6 +2,10 @@
 import { useAuthStore } from "~~/store/auth";
 
 const authStore = useAuthStore();
+
+function closeModal() {
+  document.querySelector<HTMLInputElement>("#my-drawer").click();
+}
 </script>
 
 <template>
@@ -37,18 +41,23 @@ const authStore = useAuthStore();
             class="sm:flex hidden flex-row items-center justify-end gap-4 mr-4"
           >
             <nuxt-link to="/" class="link">Home</nuxt-link>
+
             <nuxt-link
               v-if="!authStore.token"
               to="/auth/sign-in"
               class="btn btn-outline btn-primary btn-sm"
-              >Sign In</nuxt-link
             >
+              Sign In
+            </nuxt-link>
+
             <nuxt-link
               v-if="!authStore.token"
               to="/auth/sign-up"
               class="btn btn-secondary btn-sm"
-              >Sign Up</nuxt-link
             >
+              Sign Up
+            </nuxt-link>
+
             <nuxt-link
               v-if="authStore.token"
               to="/dashboard"
@@ -56,6 +65,7 @@ const authStore = useAuthStore();
             >
               Dashboard
             </nuxt-link>
+
             <button
               v-if="authStore.token"
               class="btn btn-outline btn-error btn-sm"
@@ -70,35 +80,41 @@ const authStore = useAuthStore();
         <loading />
       </div>
     </div>
+
     <div class="drawer-side">
       <label for="my-drawer" class="drawer-overlay"></label>
       <ul
         class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content gap-4"
       >
-        <!-- Sidebar content here -->
-        <li><nuxt-link to="/" class="link">Home</nuxt-link></li>
-        <li v-if="!authStore.token">
+        <li @click="closeModal">
           <nuxt-link
-            to="/auth/sign-in"
-            class="btn btn-outline btn-primary btn-sm"
-            >Sign In</nuxt-link
+            to="/"
+            class="link w-full flex items-center justify-center"
           >
+            Home
+          </nuxt-link>
         </li>
-        <li v-if="!authStore.token">
-          <nuxt-link to="/auth/sign-up" class="btn btn-secondary btn-sm"
-            >Sign Up</nuxt-link
-          >
+
+        <li v-if="!authStore.token" @click="closeModal">
+          <nuxt-link to="/auth/sign-in" class="btn btn-outline btn-primary">
+            Sign In
+          </nuxt-link>
         </li>
-        <li v-if="authStore.token">
-          <nuxt-link to="/dashboard" class="btn btn-outline btn-primary btn-sm">
+
+        <li v-if="!authStore.token" @click="closeModal">
+          <nuxt-link to="/auth/sign-up" class="btn btn-secondary">
+            Sign Up
+          </nuxt-link>
+        </li>
+
+        <li v-if="authStore.token" @click="closeModal">
+          <nuxt-link to="/dashboard" class="btn btn-outline btn-primary">
             Dashboard
           </nuxt-link>
         </li>
-        <li v-if="authStore.token">
-          <button
-            class="btn btn-outline btn-error btn-sm"
-            @click="authStore.signOut"
-          >
+
+        <li v-if="authStore.token" @click="closeModal">
+          <button class="btn btn-outline btn-error" @click="authStore.signOut">
             Sign Out
           </button>
         </li>
