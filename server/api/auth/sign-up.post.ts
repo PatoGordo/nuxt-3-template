@@ -5,7 +5,7 @@ import { validateForm } from "js-laravel-validation";
 import moment from "moment";
 
 export default defineEventHandler(async (event) => {
-  const { name, email, password } = await useBody(event);
+  const { name, email, password } = await readBody(event);
 
   const validation = validateForm({
     formData: {
@@ -56,7 +56,7 @@ export default defineEventHandler(async (event) => {
     });
 
     if (alreadyExists) {
-      event.res.statusCode = 403;
+      event.node.res.statusCode = 403;
 
       return {
         message: "This email is being used!",
@@ -73,7 +73,7 @@ export default defineEventHandler(async (event) => {
       },
     });
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
       expiresIn: "24h",
     });
 
@@ -84,11 +84,11 @@ export default defineEventHandler(async (event) => {
       expires_at: moment().add(24, "h"),
     };
   } catch (error) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       message: "This email is being used!",
-      error: error.message,
+      error: (error as { message: string }).message,
     };
   }
 });

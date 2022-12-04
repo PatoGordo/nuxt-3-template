@@ -5,7 +5,7 @@ import { validateForm } from "js-laravel-validation";
 import moment from "moment";
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await useBody(event);
+  const { email, password } = await readBody(event);
 
   const validation = validateForm({
     formData: {
@@ -33,8 +33,8 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  if (user.status === 0 || user.status === 2) {
-    event.res.statusCode = 403;
+  if (user?.status === 0 || user?.status === 2) {
+    event.node.res.statusCode = 403;
 
     return {
       message:
@@ -43,7 +43,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!user) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       message: "Email or password went wrong!",
@@ -51,7 +51,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
       expiresIn: "24h",
     });
 
@@ -62,7 +62,7 @@ export default defineEventHandler(async (event) => {
       expires_at: moment().add(24, "h"),
     };
   } else {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       message: "Email or password went wrong!",

@@ -4,7 +4,7 @@ import { validateForm } from "js-laravel-validation";
 import { prismaClient } from "~~/server/db-client";
 
 export default defineEventHandler(async (event) => {
-  const { token, password } = await useBody(event);
+  const { token, password } = await readBody(event);
 
   const validation = validateForm({
     formData: {
@@ -26,10 +26,10 @@ export default defineEventHandler(async (event) => {
     };
   }
 
-  const tokenData = jwt.verify(token, process.env.JWT_SECRET);
+  const tokenData = jwt.verify(token, process.env.JWT_SECRET as string);
 
   if (!tokenData) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       message: "This link probably has been expired or not exists",
@@ -48,8 +48,8 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  if (user.password !== oldPassHash) {
-    event.res.statusCode = 403;
+  if (user?.password !== oldPassHash) {
+    event.node.res.statusCode = 403;
 
     return {
       message: "This link probably has been expired or not exists",
@@ -57,7 +57,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!user) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       error: {

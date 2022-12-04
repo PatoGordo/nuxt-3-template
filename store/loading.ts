@@ -4,7 +4,7 @@ export const useLoading = defineStore("loading", {
   state() {
     return {
       isOpen: false,
-      hint: null,
+      hint: "",
     };
   },
   actions: {
@@ -13,7 +13,7 @@ export const useLoading = defineStore("loading", {
     },
     close() {
       this.isOpen = false;
-      this.hint = null;
+      this.hint = "";
     },
   },
 });

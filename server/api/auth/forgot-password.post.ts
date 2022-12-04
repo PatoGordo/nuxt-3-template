@@ -4,7 +4,7 @@ import { prismaClient } from "~~/server/db-client";
 import { transporter } from "~~/server/services/mail";
 
 export default defineEventHandler(async (event) => {
-  const { email } = await useBody(event);
+  const { email } = await readBody(event);
 
   const validation = validateForm({
     formData: {
@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!user || user.status === 0 || user.status === 2) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       message: "This user does not exists in our database or it was deleted!",
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
       email: user.email,
       passwordHash: user.password,
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET as string,
     {
       expiresIn: "1h",
     }

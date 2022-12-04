@@ -7,8 +7,8 @@ import { api } from "~~/service/api";
 import { useLoading } from "./loading";
 
 type AuthStoreProps = {
-  token?: string;
-  expires_at?: null | Date;
+  token?: null | string;
+  expires_at?: null | Date | moment.Moment;
   user?: null | User;
 };
 

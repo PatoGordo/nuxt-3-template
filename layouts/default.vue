@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { useAuthStore } from "~~/store/auth";
 
+const { APP_NAME } = useRuntimeConfig().public;
+
 const authStore = useAuthStore();
 
 function closeModal() {
-  document.querySelector<HTMLInputElement>("#my-drawer").click();
+  document.querySelector<HTMLInputElement>("#my-drawer")?.click();
 }
 </script>
 
@@ -15,9 +17,9 @@ function closeModal() {
       <div class="flex flex-col items items-start justify-start w-full h-full">
         <div class="navbar bg-base-200 z-30">
           <div class="flex-1">
-            <nuxt-link to="/" class="btn btn-ghost normal-case text-xl"
-              >MyAPP</nuxt-link
-            >
+            <nuxt-link to="/" class="btn btn-ghost normal-case text-xl">
+              {{ APP_NAME }}
+            </nuxt-link>
           </div>
           <div class="flex-none sm:hidden">
             <label class="btn btn-square btn-ghost" for="my-drawer">
