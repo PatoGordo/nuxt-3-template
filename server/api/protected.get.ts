@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
 
   // 2 -> editor
   // 3 -> admin
-  if (![2, 3].includes(user.role)) {
-    event.res.statusCode = 403;
+  if (![2, 3].includes(user?.role || 1)) {
+    event.node.res.statusCode = 403;
 
     return {
       message: "You has'nt permission to see this content!",

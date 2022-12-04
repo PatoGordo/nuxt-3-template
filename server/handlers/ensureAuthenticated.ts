@@ -10,7 +10,7 @@ export async function ensureAuthenticated(event: any): Promise<{
   const tokenHeader = event.req.headers.authorization;
 
   if (!tokenHeader) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       error: {
@@ -22,7 +22,7 @@ export async function ensureAuthenticated(event: any): Promise<{
   const token = tokenHeader.split("Bearer ")[1];
 
   if (!token) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       error: {
@@ -31,10 +31,10 @@ export async function ensureAuthenticated(event: any): Promise<{
     };
   }
 
-  const isSignedIn = jwt.verify(token, process.env.JWT_SECRET);
+  const isSignedIn = jwt.verify(token, process.env.JWT_SECRET as string);
 
   if (!isSignedIn) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       error: {
@@ -55,7 +55,7 @@ export async function ensureAuthenticated(event: any): Promise<{
   });
 
   if (!user) {
-    event.res.statusCode = 403;
+    event.node.res.statusCode = 403;
 
     return {
       error: {

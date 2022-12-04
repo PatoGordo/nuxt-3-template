@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import Swal from "sweetalert2";
 
 export function useAxiosError(error: AxiosError | unknown, caseOk: () => void) {
-  const err = (error as AxiosError).response.data;
+  const err = (error as AxiosError)?.response?.data;
 
   Swal.fire({
     title: "An Unexpected Error Occurred!",

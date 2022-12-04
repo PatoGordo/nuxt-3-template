@@ -4,6 +4,7 @@ import { useAuthStore } from "~~/store/auth";
 const email = ref("");
 const password = ref("");
 
+const { APP_NAME } = useRuntimeConfig().public;
 const authStore = useAuthStore();
 
 async function handleSubmit() {
@@ -36,7 +37,7 @@ definePageMeta({
     <section
       class="bg-base-200 w-full h-full gap-4 sm:p-8 p-4 rounded-md flex flex-col items-start justify-center"
     >
-      <h2 class="page-title pb-0 lg:mt-10">Sign in to platform</h2>
+      <h2 class="page-title pb-0 lg:mt-10">Sign in to {{ APP_NAME }}</h2>
 
       <form
         class="mt-2 w-full flex flex-col items-start justify-start gap-4"

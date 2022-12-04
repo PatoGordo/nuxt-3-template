@@ -20,7 +20,11 @@ export default defineNuxtConfig({
       },
     },
   },
-  nitro: {
-    plugins: ["~/server/plugins/cors"],
+  runtimeConfig: {
+    public: {
+      APP_NAME: process.env.APP_NAME,
+      APP_URL: process.env.APP_URL,
+    },
+    APP_URL: process.env.APP_URL,
   },
 });
