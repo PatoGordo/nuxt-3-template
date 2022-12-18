@@ -1,3 +1,18 @@
+// Roles
+/* 
+  0 - Useless
+  1 - Admin
+  2 - Editor
+  3 - User
+*/
+
+// Status
+/* 
+  0 - Deleted
+  1 - Approved
+  2 - Analysis
+*/
+
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { prismaClient } from "~~/server/db-client";
@@ -18,11 +33,14 @@ export default defineEventHandler(async (event) => {
         validation: "required|min:6",
       },
     },
+    includeMessages: false,
   });
 
   if (validation.errors) {
+    console.log(validation.errors);
+
     return {
-      message: "Check if all form fields are filled",
+      message: "Check if all form fields are filled!",
       errors: validation.errors,
     };
   }
@@ -33,7 +51,7 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  if (user?.status === 0 || user?.status === 2) {
+  if ([0, 2].includes(user?.status || 0)) {
     event.node.res.statusCode = 403;
 
     return {

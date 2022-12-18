@@ -1,13 +1,29 @@
 import { User } from "@prisma/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { prismaClient } from "../db-client";
+import { H3Event } from "h3";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function ensureAuthenticated(event: any): Promise<{
+export async function ensureAuthenticated(
+  event: H3Event,
+  allowedRoles: number[] = []
+): Promise<{
   user?: User;
   error?: object;
+  isAdminOrEditor: () => boolean;
+  isAdmin: () => boolean;
+  isEditor: () => boolean;
+  isUser: () => boolean;
+  roleIn: (roles: number[]) => boolean;
 }> {
   const tokenHeader = event.req.headers.authorization;
+
+  const errorFunctions = {
+    isAdmin: () => false,
+    isAdminOrEditor: () => false,
+    isEditor: () => false,
+    isUser: () => false,
+    roleIn: () => false,
+  };
 
   if (!tokenHeader) {
     event.node.res.statusCode = 403;
@@ -16,6 +32,7 @@ export async function ensureAuthenticated(event: any): Promise<{
       error: {
         message: "You must to be loggedin to make this action",
       },
+      ...errorFunctions,
     };
   }
 
@@ -28,6 +45,7 @@ export async function ensureAuthenticated(event: any): Promise<{
       error: {
         message: "You must to be loggedin to make this action",
       },
+      ...errorFunctions,
     };
   }
 
@@ -40,6 +58,7 @@ export async function ensureAuthenticated(event: any): Promise<{
       error: {
         message: "You must to be loggedin to make this action",
       },
+      ...errorFunctions,
     };
   }
 
@@ -62,8 +81,40 @@ export async function ensureAuthenticated(event: any): Promise<{
         message:
           "Probabily your user has been deleted or unactive, contact the admin to solve that.",
       },
+      ...errorFunctions,
     };
   }
 
-  return { user };
+  if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
+    event.node.res.statusCode = 403;
+
+    return {
+      error: {
+        message: "You are not allowed to do this action!",
+      },
+      ...errorFunctions,
+    };
+  }
+
+  function isAdminOrEditor() {
+    return [1, 2].includes(user?.role || 3);
+  }
+
+  function isAdmin() {
+    return [1].includes(user?.role || 3);
+  }
+
+  function isEditor() {
+    return [2].includes(user?.role || 3);
+  }
+
+  function isUser() {
+    return [3].includes(user?.role || 3);
+  }
+
+  function roleIn(roles: number[]) {
+    return roles.includes(user?.role || 3) || false;
+  }
+
+  return { user, isAdminOrEditor, isAdmin, isEditor, isUser, roleIn };
 }

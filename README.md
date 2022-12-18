@@ -14,7 +14,6 @@
 - Husky
 - Authentication ready to use
 - Mail service ready to use
-- Laravel form validation
 
 ## Setup
 

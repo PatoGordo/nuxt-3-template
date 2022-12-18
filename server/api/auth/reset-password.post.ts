@@ -17,11 +17,12 @@ export default defineEventHandler(async (event) => {
         validation: "required|min:6",
       },
     },
+    includeMessages: false,
   });
 
   if (validation.errors) {
     return {
-      message: "Check if all form fields are filled",
+      message: "Check if all form fields are filled!",
       errors: validation.errors,
     };
   }

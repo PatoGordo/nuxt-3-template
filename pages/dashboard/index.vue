@@ -13,7 +13,7 @@ definePageMeta({
     <h2>Dashboard</h2>
 
     <p>You must to be admin or editor to access page below</p>
-    <p>Change in your database your user role to 2 or 3</p>
+    <p>Change in your database your user role to 1 or 2</p>
     <nuxt-link to="/dashboard/protected-route" class="btn btn-primary btn-sm">
       Go to /dashboard/protected-route
     </nuxt-link>

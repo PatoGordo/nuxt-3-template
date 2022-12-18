@@ -10,9 +10,9 @@ export default defineNuxtRouteMiddleware(() => {
     return router.push("/auth/sign-in");
   }
 
+  // 1 -> admin
   // 2 -> editor
-  // 3 -> admin
-  if (![2, 3].includes(authStore.user.role)) {
+  if (![1, 2].includes(authStore?.user?.role || 3)) {
     return router.push("/dashboard");
   }
 });

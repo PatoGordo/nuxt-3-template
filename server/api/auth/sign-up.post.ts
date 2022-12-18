@@ -1,3 +1,18 @@
+// Roles
+/* 
+  0 - Useless
+  1 - Admin
+  2 - Editor
+  3 - User
+*/
+
+// Status
+/* 
+  0 - Deleted
+  1 - Approved
+  2 - Analysis
+*/
+
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { prismaClient } from "~~/server/db-client";
@@ -15,38 +30,24 @@ export default defineEventHandler(async (event) => {
       },
       password: {
         value: password,
-        validation: "required|min:6",
+        validation: "required|min:8",
       },
       name: {
         value: name,
         validation: "required",
       },
     },
+    includeMessages: false,
   });
 
   if (validation.errors) {
+    console.log(validation.errors);
+
     return {
-      message: "Check if all form fields are filled",
-      pt_message:
-        "Verifique se todos os campos do formulário estão preenchidos",
+      message: "Check if all form fields are filled!",
       errors: validation.errors,
     };
   }
-
-  // Roles
-  /* 
-    0 - Useless
-    1 - User
-    2 - Editor
-    3 - Admin
-  */
-
-  // Status
-  /* 
-    0 - Deleted
-    1 - Approved
-    2 - Analysis
-  */
 
   try {
     const alreadyExists = await prismaClient.user.findFirst({
@@ -60,7 +61,6 @@ export default defineEventHandler(async (event) => {
 
       return {
         message: "This email is being used!",
-        pt_message: "Esse email já está sendo utilizado!",
         alreadyExists,
       };
     }
@@ -87,7 +87,7 @@ export default defineEventHandler(async (event) => {
     event.node.res.statusCode = 403;
 
     return {
-      message: "This email is being used!",
+      message: "An unexpected error has occured!",
       error: (error as { message: string }).message,
     };
   }
