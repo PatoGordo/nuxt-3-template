@@ -61,7 +61,6 @@ export default defineEventHandler(async (event) => {
 
       return {
         message: "This email is being used!",
-        alreadyExists,
       };
     }
 
