@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { prismaClient } from "../db-client";
+import { prismaClient } from "../../database/db-client";
 import { H3Event } from "h3";
 
 export async function ensureAuthenticated(

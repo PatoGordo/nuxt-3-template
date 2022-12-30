@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { validateForm } from "js-laravel-validation";
-import { prismaClient } from "~~/server/db-client";
+import { prismaClient } from "~~/server/database/db-client";
 
 export default defineEventHandler(async (event) => {
   const { token, password } = await readBody(event);

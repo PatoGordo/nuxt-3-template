@@ -1,4 +1,4 @@
-import { ensureAuthenticated } from "../handlers/ensureAuthenticated";
+import { ensureAuthenticated } from "../app/middlewares/ensureAuthenticated";
 
 export default defineEventHandler(async (event) => {
   const { error } = await ensureAuthenticated(event, [1, 2]);

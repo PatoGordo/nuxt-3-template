@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { validateForm } from "js-laravel-validation";
-import { prismaClient } from "~~/server/db-client";
-import { transporter } from "~~/server/services/mail";
+import { prismaClient } from "~~/server/database/db-client";
+import { transporter } from "~~/server/app/domain/services/mail";
 
 export default defineEventHandler(async (event) => {
   const { email } = await readBody(event);
