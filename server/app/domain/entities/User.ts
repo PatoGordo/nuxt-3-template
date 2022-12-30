@@ -16,8 +16,8 @@ export class User {
     this.name = name;
     this.email = email;
     this.password = bcrypt.hashSync(password);
-    this.role = role !== null ? role : 3;
-    this.status = status !== null ? status : 1;
+    this.role = role != undefined ? role : 3;
+    this.status = status != undefined ? status : 1;
     this.createdAt = new Date();
     this.updatedAt = new Date();
   }

@@ -1,8 +1,9 @@
+import bcrypt from "bcryptjs";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { IAuthRepository } from "../../Interfaces/IAuthRepository";
 import { User } from "~~/server/app/domain/entities/User";
 import { prismaClient } from "~~/server/database/db-client";
-import bcrypt from "bcryptjs";
-import { IAuthRepository } from "../../Interfaces/IAuthRepository";
-import jwt from "jsonwebtoken";
+import { transporter } from "~~/server/app/domain/services/mail";
 import "dotenv/config";
 
 export class PrismaAuthRepository implements IAuthRepository {
@@ -77,5 +78,98 @@ export class PrismaAuthRepository implements IAuthRepository {
     );
 
     return { user: { ...user, password: "protected-data" }, token };
+  }
+
+  public async forgotPassword({
+    email,
+  }: {
+    email: string;
+  }): Promise<{ recoverToken: string }> {
+    const user = await prismaClient.user.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (!user || user.status === 0 || user.status === 2) {
+      throw new Error(
+        "This user does not exists in our database or it was deleted!"
+      );
+    }
+
+    const recoverToken = jwt.sign(
+      {
+        email: user.email,
+        passwordHash: user.password,
+      },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "1h",
+      }
+    );
+
+    await transporter.sendMail({
+      to: email,
+      from: process.env.MAIL_USERNAME,
+      subject: process.env.APP_NAME + " - Reset password",
+      html: `
+      <h2>Click in the link below to reset your password</h2>
+      <p>The link below expires in 1 one hour</p>
+      <br />
+      <a href="${process.env.APP_URL}/auth/${recoverToken}/reset-password">Reset password</a>
+    `.trim(),
+    });
+
+    return {
+      recoverToken,
+    };
+  }
+
+  public async resetPassword({
+    token,
+    password,
+  }: {
+    token: string;
+    password: string;
+  }): Promise<void> {
+    const tokenData = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as JwtPayload;
+
+    if (!tokenData) {
+      throw new Error("This link probably has been expired or not exists");
+    }
+
+    const email = tokenData.email;
+    const oldPassHash = tokenData.passwordHash;
+
+    const user = await prismaClient.user.findFirst({
+      where: {
+        email,
+        status: {
+          notIn: [0, 2],
+        },
+      },
+    });
+
+    if (user?.password !== oldPassHash) {
+      throw new Error("This link probably has been expired or not exists");
+    }
+
+    if (!user) {
+      throw new Error(
+        "This user does not exists in our database or it was deleted!"
+      );
+    }
+
+    await prismaClient.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: bcrypt.hashSync(password, 8),
+      },
+    });
   }
 }

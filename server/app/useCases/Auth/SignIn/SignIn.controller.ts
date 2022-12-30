@@ -1,11 +1,12 @@
-import { SignUpUseCase } from "../../useCases/Auth/SignUp.useCase";
+import { SignInUseCase } from "./SignIn.useCase";
 import { H3Event } from "h3";
-import { AppError } from "../../domain/types/Error";
-import { AppSuccess } from "../../domain/types/Success";
+import { AppError } from "../../../domain/types/Error";
+import { AppSuccess } from "../../../domain/types/Success";
 import * as st from "simple-runtypes";
+import { EMAIL_REGEX_MATCH } from "~~/utils/regex";
 
-export class SignUpController {
-  constructor(private useCase: SignUpUseCase) {}
+export class SignInController {
+  constructor(private useCase: SignInUseCase) {}
 
   public async execute(event: H3Event): Promise<AppError | AppSuccess> {
     try {
@@ -16,22 +17,21 @@ export class SignUpController {
       const result = await this.useCase.execute(request);
 
       return {
-        result: {
-          ...result,
-          password: "protected-data",
-        },
+        result: result,
       };
     } catch (error) {
-      return error as AppError;
+      event.node.res.statusCode = 400;
+
+      return {
+        message: (error as AppError).message,
+      };
     }
   }
 
   private async validations(request: unknown) {
     const validation = st.record({
-      name: st.string(),
       email: st.string({
-        match:
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        match: EMAIL_REGEX_MATCH,
         trim: true,
       }),
       password: st.string({ minLength: 8, trim: true }),

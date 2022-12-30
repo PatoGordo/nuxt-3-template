@@ -1,18 +1,20 @@
-import { User } from "../../domain/entities/User";
-import { IAuthRepository } from "../../repositories/Interfaces/IAuthRepository";
+import { User } from "../../../domain/entities/User";
+import { IAuthRepository } from "../../../repositories/Interfaces/IAuthRepository";
 
-export class SignInUseCase {
+export class SignUpUseCase {
   constructor(private repository: IAuthRepository) {}
 
   public async execute({
     email,
+    name,
     password,
   }: {
     email: string;
+    name: string;
     password: string;
   }): Promise<{ user: User; token: string }> {
     try {
-      const result = await this.repository.signIn({ email, password });
+      const result = await this.repository.signUp({ email, name, password });
 
       return result;
     } catch (error) {

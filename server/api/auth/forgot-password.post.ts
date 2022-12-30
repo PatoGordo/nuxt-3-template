@@ -1,66 +1,11 @@
-import jwt from "jsonwebtoken";
-import { validateForm } from "js-laravel-validation";
-import { prismaClient } from "~~/server/database/db-client";
-import { transporter } from "~~/server/app/domain/services/mail";
+import { ForgotPasswordController } from "../../app/useCases/Auth/ForgotPassword/ForgotPassword.controller";
+import { PrismaAuthRepository } from "../../app/repositories/Implementations/Prisma/PrismaAuthRepository";
+import { ForgotPasswordUseCase } from "../../app/useCases/Auth/ForgotPassword/ForgotPassword.useCase";
 
 export default defineEventHandler(async (event) => {
-  const { email } = await readBody(event);
+  const repository = new PrismaAuthRepository();
+  const useCase = new ForgotPasswordUseCase(repository);
+  const controller = new ForgotPasswordController(useCase);
 
-  const validation = validateForm({
-    formData: {
-      email: {
-        value: email,
-        validation: "required|email",
-      },
-    },
-    includeMessages: true,
-  });
-
-  if (validation.errors) {
-    return {
-      message: "Check if all form fields are filled!",
-      errors: validation.errors,
-    };
-  }
-
-  const user = await prismaClient.user.findFirst({
-    where: {
-      email,
-    },
-  });
-
-  if (!user || user.status === 0 || user.status === 2) {
-    event.node.res.statusCode = 403;
-
-    return {
-      message: "This user does not exists in our database or it was deleted!",
-    };
-  }
-
-  const recoverToken = jwt.sign(
-    {
-      email: user.email,
-      passwordHash: user.password,
-    },
-    process.env.JWT_SECRET as string,
-    {
-      expiresIn: "1h",
-    }
-  );
-
-  await transporter.sendMail({
-    to: email,
-    from: process.env.MAIL_USERNAME,
-    subject: process.env.APP_NAME + " - Reset password",
-    html: `
-      <h2>Click in the link below to reset your password</h2>
-      <p>The link below expires in 1 one hour</p>
-      <br />
-      <a href="${process.env.APP_URL}/auth/${recoverToken}/reset-password">Reset password</a>
-    `.trim(),
-  });
-
-  return {
-    message: "An email with a reset link was sent to your mail!",
-  };
+  return await controller.execute(event);
 });
