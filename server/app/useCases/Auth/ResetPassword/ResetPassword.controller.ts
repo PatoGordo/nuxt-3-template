@@ -1,11 +1,11 @@
-import { SignInUseCase } from "../../useCases/Auth/SignIn.useCase";
+import { ResetPasswordUseCase } from "./ResetPassword.useCase";
 import { H3Event } from "h3";
-import { AppError } from "../../domain/types/Error";
-import { AppSuccess } from "../../domain/types/Success";
+import { AppError } from "~~/server/app/domain/types/Error";
+import { AppSuccess } from "~~/server/app/domain/types/Success";
 import * as st from "simple-runtypes";
 
-export class SignInController {
-  constructor(private useCase: SignInUseCase) {}
+export class ResetPasswordController {
+  constructor(private useCase: ResetPasswordUseCase) {}
 
   public async execute(event: H3Event): Promise<AppError | AppSuccess> {
     try {
@@ -13,26 +13,28 @@ export class SignInController {
 
       await this.validations(request);
 
-      const result = await this.useCase.execute(request);
+      await this.useCase.execute(request);
+
+      event.node.res.statusCode = 201;
 
       return {
         result: {
-          ...result,
-          password: "protected-data",
+          message:
+            "Your password has been successfully reseted. Try to login again!",
         },
       };
     } catch (error) {
-      return error as AppError;
+      event.node.res.statusCode = 400;
+
+      return {
+        message: (error as AppError).message,
+      };
     }
   }
 
   private async validations(request: unknown) {
     const validation = st.record({
-      email: st.string({
-        match:
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-        trim: true,
-      }),
+      token: st.string({ trim: true }),
       password: st.string({ minLength: 8, trim: true }),
     });
 

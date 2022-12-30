@@ -1,14 +1,7 @@
-import { ensureAuthenticated } from "../app/middlewares/ensureAuthenticated";
+import { ProtectedController } from "../app/useCases/Protected/Protected.controller";
 
 export default defineEventHandler(async (event) => {
-  const { error } = await ensureAuthenticated(event, [1, 2]);
+  const protectedController = new ProtectedController();
 
-  if (error) {
-    return error;
-  }
-
-  return {
-    result:
-      "This is a protected content! (Verified at Server side and Client side)",
-  };
+  return await protectedController.execute(event);
 });

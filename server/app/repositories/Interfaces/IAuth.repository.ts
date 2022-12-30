@@ -17,4 +17,16 @@ export interface IAuthRepository {
     name: string;
     password: string;
   }): Promise<{ user: User; token: string }>;
+  resetPassword({
+    token,
+    password,
+  }: {
+    token: string;
+    password: string;
+  }): Promise<void>;
+  forgotPassword({
+    email,
+  }: {
+    email: string;
+  }): Promise<{ recoverToken: string }>;
 }

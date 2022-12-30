@@ -3,6 +3,7 @@ import moment from "moment";
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import { useAxiosError } from "~~/composables/useAxiosError";
+import { useResult } from "~~/composables/useResult";
 import { api } from "~~/service/api";
 import { useLoading } from "./loading";
 
@@ -29,14 +30,16 @@ export const useAuthStore = defineStore("auth", {
       loading.open();
 
       try {
-        const result = await api.post("/auth/sign-in", {
+        const res = await api.post("/auth/sign-in", {
           email,
           password,
         });
 
-        this.token = result.data.token;
-        this.user = result.data.user;
-        this.expires_at = moment().add(24, "h");
+        const result = useResult(res);
+
+        this.token = result.token;
+        this.user = result.user;
+        this.expires_at = result.expires_at;
 
         router.push("/dashboard");
         loading.close();
@@ -63,15 +66,17 @@ export const useAuthStore = defineStore("auth", {
       loading.open();
 
       try {
-        const result = await api.post("/auth/sign-up", {
+        const res = await api.post("/auth/sign-up", {
           email,
           password,
           name,
         });
 
-        this.token = result.data.token;
-        this.user = result.data.user;
-        this.expires_at = result.data.expires_at;
+        const result = useResult(res);
+
+        this.token = result.token;
+        this.user = result.user;
+        this.expires_at = result.expires_at;
 
         router.push("/dashboard");
         loading.close();
@@ -99,13 +104,15 @@ export const useAuthStore = defineStore("auth", {
       loading.open();
 
       try {
-        const result = await api.post("/auth/forgot-password", {
+        const res = await api.post("/auth/forgot-password", {
           email,
         });
 
+        const result = useResult(res);
+
         Swal.fire({
           icon: "success",
-          title: result.data.message,
+          title: result.message,
           showCancelButton: true,
           cancelButtonText: "OK",
         });
@@ -132,14 +139,16 @@ export const useAuthStore = defineStore("auth", {
       loading.open();
 
       try {
-        const result = await api.post("/auth/reset-password", {
+        const res = await api.post("/auth/reset-password", {
           token: resetPasswordToken,
           password,
         });
 
+        const result = useResult(res);
+
         Swal.fire({
           icon: "success",
-          title: result.data.message,
+          title: result.message,
           showCancelButton: true,
           cancelButtonText: "OK",
         });

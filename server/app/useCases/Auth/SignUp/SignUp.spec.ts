@@ -1,8 +1,8 @@
 import { inMemoryDB } from "~~/server/database/in-memory-db";
-import { User } from "../../domain/entities/User";
-import { AppError } from "../../domain/types/Error";
-import { InMemoryAuthRepository } from "../../repositories/Implementations/InMemory/InMemoryAuthRepository";
-import { SignUpUseCase } from "../../useCases/Auth/SignUp.useCase";
+import { User } from "../../../domain/entities/User";
+import { AppError } from "../../../domain/types/Error";
+import { InMemoryAuthRepository } from "../../../repositories/Implementations/InMemory/InMemoryAuth.repository";
+import { SignUpUseCase } from "./SignUp.useCase";
 
 describe("Testing the Sign In UseCase", () => {
   const repository = new InMemoryAuthRepository();

@@ -18,7 +18,7 @@ async function getProtectedData() {
       },
     });
 
-    content.value = res.data.result;
+    content.value = useResult(res).message;
     loading.close();
   } catch (error) {
     useAxiosError(error, () => {

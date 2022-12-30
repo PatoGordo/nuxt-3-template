@@ -1,5 +1,5 @@
-import { User } from "../../domain/entities/User";
-import { IAuthRepository } from "../../repositories/Interfaces/IAuthRepository";
+import { User } from "../../../domain/entities/User";
+import { IAuthRepository } from "../../../repositories/Interfaces/IAuth.repository";
 
 export class SignInUseCase {
   constructor(private repository: IAuthRepository) {}
