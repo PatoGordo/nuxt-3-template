@@ -3,7 +3,7 @@ import { defineEventHandler, getRequestHeader } from "h3";
 import cache from "memory-cache";
 import { $st } from "../i18n/$st";
 
-// THIS RATE LIMITER ALLOWS 10 REQUESTS EVERY 10 SECONDS
+// THIS RATE LIMITER ALLOWS 10 REQUESTS EVERY 15 SECONDS
 export default defineEventHandler(async (event) => {
   if (event.node.req.url?.includes("/api/")) {
     const ip = getRequestHeader(event, "x-forwarded-for");
