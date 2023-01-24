@@ -1,0 +1,89 @@
+{
+  "hello_world": "Olá Mundo!",
+  "alerts": {
+    "loading_content": "Carregando conteúdo...",
+    "signing": "Entrando...",
+    "creating_account": "Criando conta...",
+    "sending_a_reset_email": "Enviando email de recuperação...",
+    "loading_data": "Carregando dados...",
+    "changing_data": "Alterando dados...",
+    "reseting_password": "Alterando senha...",
+    "saving_data": "Salvando dados..."
+  },
+  "buttons": {
+    "continue": "Continuar",
+    "confirm": "Confirmar",
+    "close": "Fechar",
+    "cancel": "Cancelar",
+    "return": "Retornar",
+    "back": "Voltar",
+    "send": "Enviar"
+  },
+  "settings": {
+    "settings": "Configurações",
+    "language": "Idioma",
+    "color_theme": "Tema de cores"
+  },
+  "navbar": {
+    "home": "Ínicio",
+    "settings": "Configurações",
+    "sign_in": "Entrar",
+    "sign_up": "Cadastrar-se",
+    "sign_out": "Encerrar Sessão",
+    "dashboard": "Painel de controle"
+  },
+  "index": {
+    "home_page": "Página inicial",
+    "read_more": "Ler mais"
+  },
+  "dashboard": {
+    "dashboard": "Painel de controle",
+    "you_must_to_be_admin_or_editor_to_access_page_below": "Você deve ser administrador ou editor para acessar a página abaixo",
+    "change_in_your_database_your_user_role_to_1_or_2": "Mude o seu cargo no seu banco de dados para 1 ou 2",
+    "go_to_dashboard_protected_route": "Ir para /dashboard/protected-route"
+  },
+  "protected_route": {
+    "protected_route": "Rota protegida",
+    "the_bold_content_below_come_from_server": "O conteudo abaixo veio do servidor"
+  },
+  "auth": {
+    "sign_in": "Entrar",
+    "sign_up": "Registrar-se",
+    "sign_out": "Encerrar sessão",
+    "forgot-password": {
+      "forgot_password": "Esqueceu a senha?",
+      "what_is_your_email": "Qual é seu email?",
+      "your_email": "Seu email...",
+      "recover_password": "Recuperar senha"
+    },
+    "reset-password": {
+      "reset_your_password": "Redefina sua senha",
+      "what_is_your_new_password": "Qual é sua nova senha?",
+      "your_password": "Sua senha...",
+      "reset_password": "Redefinir senha"
+    },
+    "next-step-forgot-password": {
+      "access_your_email_to_see_the_reset_link": "Acesse seu email para ver o link de recuperação de senha.",
+      "go_to_login_page": "Ir para tela de login"
+    },
+    "sign-in": {
+      "sign_in_to": "Fazer login em",
+      "what_is_your_email": "Qual é seu email?",
+      "your_email": "Seu email...",
+      "what_is_your_password": "Qual é sua senha?",
+      "your_password": "Sua senha...",
+      "does_not_have_an_account_create_one": "Não tem uma conta, crie uma.",
+      "forgot_your_password": "Esqueceu sua senha?"
+    },
+    "sign-up": {
+      "sign_up_to": "Registrar-se em",
+      "what_is_your_email": "Qual é seu email?",
+      "your_email": "Seu email...",
+      "what_is_your_name": "Qual é seu nome?",
+      "your_name": "Seu nome...",
+      "what_is_your_password": "Qual é sua senha?",
+      "your_password": "Sua senha...",
+      "already_have_an_account_access_it": "Já possui uma conta? Acesse ela."
+    }
+  }
+}

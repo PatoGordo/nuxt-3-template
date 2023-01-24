@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useI18n } from "vue-i18n";
 import { useAuthStore } from "~~/store/auth";
 
 const name = ref("");
@@ -8,8 +9,10 @@ const password = ref("");
 const { APP_NAME } = useRuntimeConfig().public;
 const authStore = useAuthStore();
 
+const i18n = useI18n();
+
 async function handleSubmit() {
-  await authStore.signUp({
+  await authStore.signUp(i18n, {
     name: name.value,
     email: email.value,
     password: password.value,
@@ -47,48 +50,58 @@ definePageMeta({
       >
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text">What is your email?</span>
+            <span class="label-text">
+              {{ $t("auth.sign-up.what_is_your_email") }}
+            </span>
           </label>
           <input
             v-model="email"
             type="email"
-            placeholder="Your email..."
+            :placeholder="$t('auth.sign-up.your_email')"
             class="input input-bordered w-full"
+            required
           />
         </div>
 
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text">What is your name?</span>
+            <span class="label-text">
+              {{ $t("auth.sign-up.what_is_your_name") }}
+            </span>
           </label>
           <input
             v-model="name"
             type="text"
-            placeholder="Your name..."
+            :placeholder="$t('auth.sign-up.your_name')"
             class="input input-bordered w-full"
+            required
           />
         </div>
 
         <div class="form-control w-full">
           <label class="label">
-            <span class="label-text">What is your password?</span>
+            <span class="label-text">
+              {{ $t("auth.sign-up.what_is_your_name") }}
+            </span>
           </label>
           <input
             v-model="password"
             type="password"
-            placeholder="Your password..."
+            :placeholder="$t('auth.sign-up.your_password')"
             class="input input-bordered w-full"
+            required
           />
         </div>
 
-        <nuxt-link to="/auth/sign-in" class="link"
-          >Already have an account, access it.</nuxt-link
-        >
+        <nuxt-link to="/auth/sign-in" class="link">
+          {{ $t("auth.sign-up.already_have_an_account_access_it") }}
+        </nuxt-link>
 
         <button class="btn btn-primary self-end w-1/3" type="submit">
-          Sign Up
+          {{ $t("auth.sign_up") }}
         </button>
       </form>
+
       <div class="grid sm:grid-cols-2 lg:grid-rows-2 gap-4 w-full mt-2">
         <button
           class="btn btn-outline btn-info gap-4"

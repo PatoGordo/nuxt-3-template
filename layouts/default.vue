@@ -42,14 +42,20 @@ function closeModal() {
           <div
             class="sm:flex hidden flex-row items-center justify-end gap-4 mr-4"
           >
-            <nuxt-link to="/" class="link">Home</nuxt-link>
+            <nuxt-link to="/" class="link">
+              {{ $t("navbar.home") }}
+            </nuxt-link>
+
+            <nuxt-link to="/settings" class="link">
+              {{ $t("navbar.settings") }}
+            </nuxt-link>
 
             <nuxt-link
               v-if="!authStore.token"
               to="/auth/sign-in"
               class="btn btn-outline btn-primary btn-sm"
             >
-              Sign In
+              {{ $t("navbar.sign_in") }}
             </nuxt-link>
 
             <nuxt-link
@@ -57,7 +63,7 @@ function closeModal() {
               to="/auth/sign-up"
               class="btn btn-secondary btn-sm"
             >
-              Sign Up
+              {{ $t("navbar.sign_up") }}
             </nuxt-link>
 
             <nuxt-link
@@ -65,7 +71,7 @@ function closeModal() {
               to="/dashboard"
               class="btn btn-outline btn-primary btn-sm"
             >
-              Dashboard
+              {{ $t("navbar.dashboard") }}
             </nuxt-link>
 
             <button
@@ -73,7 +79,7 @@ function closeModal() {
               class="btn btn-outline btn-error btn-sm"
               @click="authStore.signOut"
             >
-              Sign Out
+              {{ $t("navbar.sign_out") }}
             </button>
           </div>
         </div>
@@ -88,36 +94,52 @@ function closeModal() {
       <ul
         class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content gap-4"
       >
+        <nuxt-link
+          to="/"
+          class="font-bold mb-4 normal-case text-xl text-center whitespace-pre-wrap"
+        >
+          {{ APP_NAME }}
+        </nuxt-link>
+
         <li @click="closeModal">
           <nuxt-link
             to="/"
             class="link w-full flex items-center justify-center"
           >
-            Home
+            {{ $t("navbar.home") }}
+          </nuxt-link>
+        </li>
+
+        <li @click="closeModal">
+          <nuxt-link
+            to="/settings"
+            class="link w-full flex items-center justify-center"
+          >
+            {{ $t("navbar.settings") }}
           </nuxt-link>
         </li>
 
         <li v-if="!authStore.token" @click="closeModal">
           <nuxt-link to="/auth/sign-in" class="btn btn-outline btn-primary">
-            Sign In
+            {{ $t("navbar.sign_in") }}
           </nuxt-link>
         </li>
 
         <li v-if="!authStore.token" @click="closeModal">
           <nuxt-link to="/auth/sign-up" class="btn btn-secondary">
-            Sign Up
+            {{ $t("navbar.sign_up") }}
           </nuxt-link>
         </li>
 
         <li v-if="authStore.token" @click="closeModal">
           <nuxt-link to="/dashboard" class="btn btn-outline btn-primary">
-            Dashboard
+            {{ $t("navbar.dashboard") }}
           </nuxt-link>
         </li>
 
         <li v-if="authStore.token" @click="closeModal">
           <button class="btn btn-outline btn-error" @click="authStore.signOut">
-            Sign Out
+            {{ $t("navbar.sign_out") }}
           </button>
         </li>
       </ul>

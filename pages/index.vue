@@ -11,7 +11,7 @@ definePageMeta({
   <div class="page-content">
     <section class="grid sm:grid-cols-2 gap-4">
       <div class="w-full flex flex-col items-start justify-start gap-4 sm:p-4">
-        <h2 class="page-title mb-4">Home page</h2>
+        <h2 class="page-title mb-4">{{ $t("index.home_page") }}</h2>
 
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor, omnis
@@ -46,7 +46,9 @@ definePageMeta({
             class="w-full rounded-md"
           />
 
-          <button class="btn btn-secondary btn-sm">Read more...</button>
+          <button class="btn btn-secondary btn-sm">
+            {{ $t("index.read_more") }}...
+          </button>
         </div>
       </div>
     </section>

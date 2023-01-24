@@ -2,6 +2,7 @@ import { ensureAuthenticated } from "../../middlewares/ensureAuthenticated.middl
 import { AppError } from "../../domain/types/Error";
 import { AppSuccess } from "../../domain/types/Success";
 import { H3Event } from "h3";
+import { $st } from "~~/server/i18n/$st";
 
 export class ProtectedController {
   async execute(event: H3Event): Promise<AppError | AppSuccess> {
@@ -14,7 +15,7 @@ export class ProtectedController {
 
       return {
         result: {
-          message: "This is a protected data from the server!",
+          message: $st("protected.this_is_a_protected_data_from_the_server"),
         },
       };
     } catch (error) {

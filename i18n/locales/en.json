@@ -1,0 +1,90 @@
+{
+  "hello_world": "Hello World!",
+  "alerts": {
+    "loading_content": "Loading content...",
+    "signing": "Signing...",
+    "creating_account": "Creating account...",
+    "sending_a_reset_email": "Sending a reset email...",
+    "loading_data": "Loading data...",
+    "changing_data": "Changing data...",
+    "reseting_password": "Reseting password...",
+    "saving_data": "Saving data...",
+    "sending_message": "Sending message..."
+  },
+  "buttons": {
+    "continue": "Continue",
+    "confirm": "Confirm",
+    "close": "Close",
+    "cancel": "Cancel",
+    "return": "Return",
+    "back": "Back",
+    "send": "Send"
+  },
+  "settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "color_theme": "Color theme"
+  },
+  "navbar": {
+    "home": "Home",
+    "settings": "Settings",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "sign_out": "Sign Out",
+    "dashboard": "Dashboard"
+  },
+  "index": {
+    "home_page": "Home page",
+    "read_more": "Read more"
+  },
+  "dashboard": {
+    "dashboard": "Dashboard",
+    "you_must_to_be_admin_or_editor_to_access_page_below": "You must to be admin or editor to access page below",
+    "change_in_your_database_your_user_role_to_1_or_2": "Change in your database your user role to 1 or 2",
+    "go_to_dashboard_protected_route": "Go to /dashboard/protected-route"
+  },
+  "protected_route": {
+    "protected_route": "Protected route",
+    "the_bold_content_below_come_from_server": "The bold content below come from server."
+  },
+  "auth": {
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "sign_out": "Sign Out",
+    "forgot-password": {
+      "forgot_password": "Forgot password?",
+      "what_is_your_email": "What is your email?",
+      "your_email": "Your email...",
+      "recover_password": "Recover password"
+    },
+    "reset-password": {
+      "reset_your_password": "Reset your password",
+      "what_is_your_new_password": "What is your new password?",
+      "your_password": "Your password...",
+      "reset_password": "Reset password"
+    },
+    "next-step-forgot-password": {
+      "access_your_email_to_see_the_reset_link": "Access your email to see the reset link",
+      "go_to_login_page": "Go to login page"
+    },
+    "sign-in": {
+      "sign_in_to": "Sign in to",
+      "what_is_your_email": "What is your email?",
+      "your_email": "Your email...",
+      "what_is_your_password": "What is your password?",
+      "your_password": "Your password...",
+      "does_not_have_an_account_create_one": "Does not have an account, create one.",
+      "forgot_your_password": "Forgot your password?"
+    },
+    "sign-up": {
+      "sign_up_to": "Sign up to",
+      "what_is_your_email": "What is your email?",
+      "your_email": "Your email...",
+      "what_is_your_name": "What is your name?",
+      "your_name": "Your name...",
+      "what_is_your_password": "What is your password?",
+      "your_password": "Your password...",
+      "already_have_an_account_access_it": "Already have an account, access it."
+    }
+  }
+}

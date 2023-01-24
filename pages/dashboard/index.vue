@@ -10,12 +10,16 @@ definePageMeta({
 
 <template>
   <div class="page-content">
-    <h2>Dashboard</h2>
+    <h2>{{ $t("dashboard.dashboard") }}</h2>
 
-    <p>You must to be admin or editor to access page below</p>
-    <p>Change in your database your user role to 1 or 2</p>
+    <p>
+      {{ $t("dashboard.you_must_to_be_admin_or_editor_to_access_page_below") }}
+    </p>
+    <p>
+      {{ $t("dashboard.change_in_your_database_your_user_role_to_1_or_2") }}
+    </p>
     <nuxt-link to="/dashboard/protected-route" class="btn btn-primary btn-sm">
-      Go to /dashboard/protected-route
+      {{ $t("dashboard.go_to_dashboard_protected_route") }}
     </nuxt-link>
   </div>
 </template>
