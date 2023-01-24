@@ -1,5 +1,8 @@
 {
   "hello_world": "Hello World!",
+  "alerts": {
+    "too_many_requests": "Too many following requests. Calm down!"
+  },
   "ensure-authenticated": {
     "you_must_to_be_loggedin_to_make_this_action": "You must to be loggedin to make this action!",
     "probabily_your_user_has_been_deleted": "Probabily your user has been deleted or unactive, contact the admin to solve that.",

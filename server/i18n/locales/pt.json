@@ -1,5 +1,8 @@
 {
   "hello_world": "Olá mundo!",
+  "alerts": {
+    "too_many_requests": "Muitas requisições seguidas. Vai com calma!"
+  },
   "ensure-authenticated": {
     "you_must_to_be_loggedin_to_make_this_action": "Você deve estar logado para realizar essa ação!",
     "probabily_your_user_has_been_deleted": "Provavelmente seu usuário foi deletado ou inativado, contate o admin para que isso seja resolvido.",
