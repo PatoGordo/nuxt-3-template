@@ -13,8 +13,6 @@ export class ProtectedController {
         throw error;
       }
 
-      event.node.res.statusCode = 401;
-
       return {
         result: {
           message: $st("protected.this_is_a_protected_data_from_the_server"),
