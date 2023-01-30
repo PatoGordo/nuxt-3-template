@@ -23,10 +23,7 @@ async function getProtectedData() {
     content.value = useResult(res).message;
     loading.close();
   } catch (error) {
-    useAxiosError(error, () => {
-      loading.close();
-      router.go(-1);
-    });
+    router.go(-1);
   }
 }
 

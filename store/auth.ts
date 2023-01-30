@@ -3,7 +3,6 @@ import moment from "moment";
 import { defineStore } from "pinia";
 import Swal from "sweetalert2";
 import { Composer } from "vue-i18n";
-import { useAxiosError } from "~~/composables/useAxiosError";
 import { useResult } from "~~/composables/useResult";
 import { api } from "~~/service/api";
 import { useLoading } from "./loading";
@@ -49,11 +48,7 @@ export const useAuthStore = defineStore("auth", {
 
         router.push("/");
         loading.close();
-      } catch (error) {
-        useAxiosError(error, () => {
-          loading.close();
-        });
-      }
+      } catch (err) {}
     },
     async signUp(
       i18n: Composer,
@@ -90,11 +85,7 @@ export const useAuthStore = defineStore("auth", {
 
         router.push("/");
         loading.close();
-      } catch (error) {
-        useAxiosError(error, () => {
-          loading.close();
-        });
-      }
+      } catch (err) {}
     },
     async signOut() {
       const router = useRouter();
@@ -128,11 +119,7 @@ export const useAuthStore = defineStore("auth", {
         router.push("/auth/next-step-forgot-password");
 
         loading.close();
-      } catch (error) {
-        useAxiosError(error, () => {
-          loading.close();
-        });
-      }
+      } catch (err) {}
     },
     async resetPassword(
       i18n: Composer,
@@ -167,12 +154,16 @@ export const useAuthStore = defineStore("auth", {
 
         loading.close();
         router.push("/auth/sign-in");
-      } catch (error) {
-        useAxiosError(error, () => {
-          loading.close();
-        });
-      }
+      } catch (err) {}
     },
   },
-  persist: true,
+  persist: {
+    ...(() => {
+      if (process.browser) {
+        return {
+          storage: localStorage,
+        };
+      }
+    })(),
+  },
 });

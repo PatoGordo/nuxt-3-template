@@ -27,7 +27,7 @@ export async function ensureAuthenticated(
   };
 
   if (!tokenHeader) {
-    event.node.res.statusCode = 403;
+    event.node.res.statusCode = 401;
 
     return {
       error: {
@@ -42,7 +42,7 @@ export async function ensureAuthenticated(
   const token = tokenHeader.split("Bearer ")[1];
 
   if (!token) {
-    event.node.res.statusCode = 403;
+    event.node.res.statusCode = 401;
 
     return {
       error: {
@@ -57,7 +57,7 @@ export async function ensureAuthenticated(
   const isSignedIn = jwt.verify(token, process.env.JWT_SECRET as string);
 
   if (!isSignedIn) {
-    event.node.res.statusCode = 403;
+    event.node.res.statusCode = 401;
 
     return {
       error: {
@@ -81,7 +81,7 @@ export async function ensureAuthenticated(
   });
 
   if (!user) {
-    event.node.res.statusCode = 403;
+    event.node.res.statusCode = 401;
 
     return {
       error: {
